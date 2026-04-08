@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Torneo Tunjita - Baloncesto 3v3</title>
+    <meta name="description" content="Torneo de baloncesto 3v3 Tunjita. Inscripciones abiertas, máximo 24 cupos.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #0a0e1a;
+            --bg-card: rgba(255, 255, 255, 0.04);
+            --bg-card-hover: rgba(255, 255, 255, 0.07);
+            --accent-orange: #ff6b2c;
+            --accent-orange-glow: rgba(255, 107, 44, 0.3);
+            --accent-blue: #3b82f6;
+            --accent-blue-glow: rgba(59, 130, 246, 0.25);
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border-subtle: rgba(255, 255, 255, 0.06);
+            --gradient-hero: linear-gradient(135deg, #ff6b2c 0%, #f43f5e 50%, #8b5cf6 100%);
+            --gradient-card: linear-gradient(135deg, rgba(255, 107, 44, 0.08), rgba(139, 92, 246, 0.08));
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animated background */
+        .bg-effects {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .bg-effects .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.15;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .bg-effects .orb-1 {
+            width: 500px;
+            height: 500px;
+            background: var(--accent-orange);
+            top: -10%;
+            right: -10%;
+            animation-delay: 0s;
+        }
+
+        .bg-effects .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: #8b5cf6;
+            bottom: -5%;
+            left: -5%;
+            animation-delay: -7s;
+        }
+
+        .bg-effects .orb-3 {
+            width: 300px;
+            height: 300px;
+            background: var(--accent-blue);
+            top: 40%;
+            left: 50%;
+            animation-delay: -14s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -40px) scale(1.05); }
+            66% { transform: translate(-20px, 30px) scale(0.95); }
+        }
+
+        /* Layout */
+        .page-wrapper {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px 60px;
+        }
+
+        /* Hero Header */
+        .hero {
+            text-align: center;
+            margin-bottom: 48px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 18px;
+            border-radius: 50px;
+            background: rgba(255, 107, 44, 0.1);
+            border: 1px solid rgba(255, 107, 44, 0.2);
+            color: var(--accent-orange);
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        .hero-badge .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent-orange);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.2rem, 6vw, 3.8rem);
+            font-weight: 900;
+            background: var(--gradient-hero);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.1;
+            margin-bottom: 12px;
+            letter-spacing: -1px;
+        }
+
+        .hero .subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            font-weight: 300;
+        }
+
+        /* Hero Logo */
+        .hero-logo {
+            display: flex;
+            justify-content: center;
+            margin: 24px auto;
+            animation: bounce 3s ease-in-out infinite;
+        }
+
+        .hero-logo img {
+            width: 160px;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid rgba(255, 107, 44, 0.35);
+            box-shadow: 0 0 30px var(--accent-orange-glow), 0 0 60px rgba(139, 92, 246, 0.12);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .hero-logo img:hover {
+            transform: scale(1.06);
+            box-shadow: 0 0 40px var(--accent-orange-glow), 0 0 80px rgba(139, 92, 246, 0.2);
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        /* Glass cards */
+        .glass-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-subtle);
+            border-radius: 20px;
+            padding: 32px;
+            margin-bottom: 32px;
+            transition: background 0.3s ease, border-color 0.3s ease;
+        }
+
+        .glass-card:hover {
+            background: var(--bg-card-hover);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 24px;
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .card-icon.orange {
+            background: rgba(255, 107, 44, 0.12);
+            color: var(--accent-orange);
+        }
+
+        .card-icon.blue {
+            background: rgba(59, 130, 246, 0.12);
+            color: var(--accent-blue);
+        }
+
+        .card-icon.purple {
+            background: rgba(139, 92, 246, 0.12);
+            color: #8b5cf6;
+        }
+
+        .card-header h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+
+        /* Disclaimer content */
+        .disclaimer-content {
+            line-height: 1.85;
+            color: var(--text-secondary);
+            font-size: 1.02rem;
+            font-weight: 300;
+        }
+
+        .disclaimer-content .highlight {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .disclaimer-content .money {
+            color: var(--accent-orange);
+            font-weight: 600;
+        }
+
+        /* Info pills */
+        .info-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-subtle);
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+
+        .pill:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.12);
+            transform: translateY(-2px);
+        }
+
+        .pill .pill-icon {
+            font-size: 1.1rem;
+        }
+
+        .pill .pill-value {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* Nequi CTA */
+        .nequi-cta {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-top: 28px;
+            padding: 20px 24px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(59, 130, 246, 0.08));
+            border: 1px solid rgba(139, 92, 246, 0.15);
+        }
+
+        .nequi-cta .nequi-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: rgba(139, 92, 246, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 1.4rem;
+        }
+
+        .nequi-cta .nequi-text {
+            flex: 1;
+        }
+
+        .nequi-cta .nequi-label {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .nequi-cta .nequi-number {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: 1.5px;
+        }
+
+        .copy-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-secondary);
+            padding: 10px 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.14);
+            color: var(--text-primary);
+        }
+
+        .copy-btn.copied {
+            background: rgba(34, 197, 94, 0.15);
+            border-color: rgba(34, 197, 94, 0.3);
+            color: #22c55e;
+        }
+
+        /* Participants section */
+        .participants-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .counter-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 50px;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            font-size: 0.85rem;
+            color: var(--accent-blue);
+            font-weight: 600;
+        }
+
+        /* Progress bar */
+        .progress-container {
+            margin-bottom: 28px;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 10px;
+            background: linear-gradient(90deg, var(--accent-orange), #f43f5e, #8b5cf6);
+            transition: width 1s ease-out;
+            position: relative;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 20px;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            animation: shimmer 2s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        /* Participant list */
+        .participants-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .participant-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px 18px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-subtle);
+            border-radius: 14px;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.5s ease-out backwards;
+        }
+
+        .participant-item:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .participant-number {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .participant-item:nth-child(3n+1) .participant-number {
+            background: rgba(255, 107, 44, 0.12);
+            color: var(--accent-orange);
+        }
+
+        .participant-item:nth-child(3n+2) .participant-number {
+            background: rgba(59, 130, 246, 0.12);
+            color: var(--accent-blue);
+        }
+
+        .participant-item:nth-child(3n) .participant-number {
+            background: rgba(139, 92, 246, 0.12);
+            color: #8b5cf6;
+        }
+
+        .participant-name {
+            font-weight: 500;
+            font-size: 1rem;
+            color: var(--text-primary);
+        }
+
+        /* Empty state */
+        .empty-participants {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-muted);
+        }
+
+        .empty-participants svg {
+            margin-bottom: 16px;
+            opacity: 0.4;
+        }
+
+        /* Rules section */
+        .rules-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        @media (max-width: 560px) {
+            .rules-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .rule-item {
+            display: flex;
+            align-items: start;
+            gap: 12px;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-subtle);
+            border-radius: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .rule-item:hover {
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .rule-icon {
+            font-size: 1.3rem;
+            line-height: 1;
+            margin-top: 2px;
+        }
+
+        .rule-text {
+            font-size: 0.92rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            font-weight: 300;
+        }
+
+        .rule-text strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* Footer */
+        .page-footer {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 28px;
+            border-top: 1px solid var(--border-subtle);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* Error state for loading */
+        .load-error {
+            text-align: center;
+            padding: 30px;
+            color: #f87171;
+            font-size: 0.95rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .anim-delay-1 { animation: fadeInUp 0.6s ease-out 0.1s backwards; }
+        .anim-delay-2 { animation: fadeInUp 0.6s ease-out 0.2s backwards; }
+        .anim-delay-3 { animation: fadeInUp 0.6s ease-out 0.3s backwards; }
+        .anim-delay-4 { animation: fadeInUp 0.6s ease-out 0.4s backwards; }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .page-wrapper {
+                padding: 24px 16px 40px;
+            }
+
+            .glass-card {
+                padding: 24px 20px;
+                border-radius: 16px;
+            }
+
+            .nequi-cta {
+                flex-direction: column;
+                text-align: center;
+                gap: 12px;
+            }
+
+            .participants-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .info-pills {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background effects -->
+    <div class="bg-effects" aria-hidden="true">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <div class="page-wrapper">
+        <!-- Hero -->
+        <header class="hero" id="hero">
+            <div class="hero-badge">
+                <span class="pulse-dot"></span>
+                Inscripciones Abiertas
+            </div>
+
+            <!-- Logo -->
+            <div class="hero-logo">
+                <img src="logo.jpeg" alt="Cedritos Basketball" id="hero-logo-img">
+            </div>
+
+            <h1>Torneo Tunjita</h1>
+            <p class="subtitle">Cedritos Basketball — ¡Arma tu equipo y compite!</p>
+        </header>
+
+        <!-- Participants Card -->
+        <section class="glass-card anim-delay-1" id="participants-section">
+            <div class="participants-header">
+                <div class="card-header" style="margin-bottom: 0;">
+                    <div class="card-icon blue">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                    </div>
+                    <h2>Participantes</h2>
+                </div>
+                <div class="counter-badge" id="counter-badge">
+                    <span id="participant-count">0</span> / 24
+                </div>
+            </div>
+
+            <!-- Progress bar -->
+            <div class="progress-container" style="margin-top: 20px;">
+                <div class="progress-info">
+                    <span>Cupos ocupados</span>
+                    <span id="progress-percent">0%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <!-- Participants grid (loaded dynamically) -->
+            <div id="participants-grid" class="participants-grid">
+                <div class="empty-participants">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M8 15h8"/>
+                        <circle cx="9" cy="9" r="1"/>
+                        <circle cx="15" cy="9" r="1"/>
+                    </svg>
+                    <p>Cargando participantes...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Disclaimer / Info Card -->
+        <section class="glass-card anim-delay-2" id="info-section">
+            <div class="card-header">
+                <div class="card-icon orange">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"/>
+                        <line x1="12" y1="16" x2="12" y2="12"/>
+                        <line x1="12" y1="8" x2="12.01" y2="8"/>
+                    </svg>
+                </div>
+                <h2>Información del Torneo</h2>
+            </div>
+
+            <p class="disclaimer-content">
+                Muchachos, ¿qué opinan de hacer un nuevo torneo como los del año pasado? Formato <span class="highlight">3 equipos</span>. La cuota sería de <span class="money">$20.000</span> por persona. Dos árbitros con mesa. Máximo <span class="highlight">24 cupos</span>.
+            </p>
+
+            <div class="info-pills">
+                <div class="pill">
+                    <span class="pill-icon">💰</span>
+                    <span>Cuota:</span>
+                    <span class="pill-value">$20.000</span>
+                </div>
+                <div class="pill">
+                    <span class="pill-icon">👥</span>
+                    <span>Máximo:</span>
+                    <span class="pill-value">24 cupos</span>
+                </div>
+                <div class="pill">
+                    <span class="pill-icon">🏀</span>
+                    <span>Formato:</span>
+                    <span class="pill-value">3 equipos</span>
+                </div>
+                <div class="pill">
+                    <span class="pill-icon">⚖️</span>
+                    <span>Árbitros:</span>
+                    <span class="pill-value">2 + mesa</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Rules Card -->
+        <section class="glass-card anim-delay-3" id="rules-section">
+            <div class="card-header">
+                <div class="card-icon purple">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                        <line x1="16" y1="13" x2="8" y2="13"/>
+                        <line x1="16" y1="17" x2="8" y2="17"/>
+                        <polyline points="10 9 9 9 8 9"/>
+                    </svg>
+                </div>
+                <h2>Condiciones</h2>
+            </div>
+
+            <div class="rules-grid">
+                <div class="rule-item">
+                    <span class="rule-icon">✅</span>
+                    <p class="rule-text">Si <strong>SÍ se hace</strong> el torneo, una persona puede dejarle el cupo a otra, pero <strong>no se devuelve la plata</strong>.</p>
+                </div>
+                <div class="rule-item">
+                    <span class="rule-icon">🔄</span>
+                    <p class="rule-text">Si <strong>NO se hace</strong> el torneo, <strong>se devuelve la plata</strong> a todos los inscritos.</p>
+                </div>
+                <div class="rule-item">
+                    <span class="rule-icon">🏟️</span>
+                    <p class="rule-text">Con la plata reunida se pone <strong>en firme el arbitraje</strong> y se confirma el torneo.</p>
+                </div>
+                <div class="rule-item">
+                    <span class="rule-icon">📲</span>
+                    <p class="rule-text">Enviar pago a <strong>Nequi</strong> o <strong>llave</strong> al número indicado abajo.</p>
+                </div>
+            </div>
+
+            <div class="nequi-cta">
+                <div class="nequi-icon">📱</div>
+                <div class="nequi-text">
+                    <div class="nequi-label">Nequi / Llave</div>
+                    <div class="nequi-number" id="nequi-number">3005357985</div>
+                </div>
+                <button class="copy-btn" id="copy-btn" onclick="copyNumber()">Copiar</button>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="page-footer anim-delay-4">
+            <p>Torneo Tunjita 🏀 2026</p>
+        </footer>
+    </div>
+
+    <script>
+        const MAX_PARTICIPANTS = 24;
+
+        async function loadParticipants() {
+            const grid = document.getElementById('participants-grid');
+            const countEl = document.getElementById('participant-count');
+            const percentEl = document.getElementById('progress-percent');
+            const fillEl = document.getElementById('progress-fill');
+
+            try {
+                const response = await fetch('Participantes.txt');
+                if (!response.ok) throw new Error('No se pudo cargar');
+
+                const text = await response.text();
+                const lines = text.split('\n')
+                    .map(line => line.trim())
+                    .filter(line => line.length > 0);
+
+                if (lines.length === 0) {
+                    grid.innerHTML = `
+                        <div class="empty-participants" style="grid-column: 1 / -1;">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 15h8"/>
+                                <circle cx="9" cy="9" r="1"/>
+                                <circle cx="15" cy="9" r="1"/>
+                            </svg>
+                            <p>Aún no hay participantes inscritos</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                // Parse participants
+                const participants = lines.map(line => {
+                    // Remove leading number, dot, dash, etc.
+                    const cleaned = line.replace(/^\d+[\.\)\-\s]+/, '').trim();
+                    return cleaned || line;
+                });
+
+                const count = participants.length;
+                const percent = Math.min(Math.round((count / MAX_PARTICIPANTS) * 100), 100);
+
+                // Update counter and progress
+                countEl.textContent = count;
+                percentEl.textContent = percent + '%';
+
+                // Animate progress bar
+                requestAnimationFrame(() => {
+                    fillEl.style.width = percent + '%';
+                });
+
+                // Render participants
+                grid.innerHTML = '';
+                participants.forEach((name, i) => {
+                    const item = document.createElement('div');
+                    item.className = 'participant-item';
+                    item.style.animationDelay = `${0.05 * i}s`;
+
+                    item.innerHTML = `
+                        <div class="participant-number">${i + 1}</div>
+                        <div class="participant-name">${escapeHtml(name)}</div>
+                    `;
+
+                    grid.appendChild(item);
+                });
+
+            } catch (error) {
+                grid.innerHTML = `
+                    <div class="load-error" style="grid-column: 1 / -1;">
+                        <p>⚠️ No se pudieron cargar los participantes.</p>
+                        <p style="font-size: 0.85rem; margin-top: 8px; color: var(--text-muted);">
+                            Asegúrate de que el archivo <strong>Participantes.txt</strong> esté en la misma carpeta.
+                        </p>
+                    </div>
+                `;
+            }
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function copyNumber() {
+            const number = document.getElementById('nequi-number').textContent;
+            const btn = document.getElementById('copy-btn');
+
+            navigator.clipboard.writeText(number).then(() => {
+                btn.textContent = '✓ Copiado';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.textContent = 'Copiar';
+                    btn.classList.remove('copied');
+                }, 2000);
+            }).catch(() => {
+                // Fallback for older browsers
+                const textarea = document.createElement('textarea');
+                textarea.value = number;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+
+                btn.textContent = '✓ Copiado';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.textContent = 'Copiar';
+                    btn.classList.remove('copied');
+                }, 2000);
+            });
+        }
+
+        // Load on page ready
+        document.addEventListener('DOMContentLoaded', loadParticipants);
+    </script>
+</body>
+</html>
