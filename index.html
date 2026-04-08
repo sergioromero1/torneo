@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,9 +8,12 @@
     <meta name="description" content="Torneo de baloncesto 3v3 Tunjita. Inscripciones abiertas, máximo 24 cupos.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
     <style>
-        *, *::before, *::after {
+        *,
+        *::before,
+        *::after {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -86,9 +90,19 @@
         }
 
         @keyframes float {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(30px, -40px) scale(1.05); }
-            66% { transform: translate(-20px, 30px) scale(0.95); }
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            33% {
+                transform: translate(30px, -40px) scale(1.05);
+            }
+
+            66% {
+                transform: translate(-20px, 30px) scale(0.95);
+            }
         }
 
         /* Layout */
@@ -131,8 +145,17 @@
         }
 
         @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(0.8); }
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.5;
+                transform: scale(0.8);
+            }
         }
 
         .hero h1 {
@@ -177,8 +200,15 @@
         }
 
         @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-12px); }
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-12px);
+            }
         }
 
         /* Glass cards */
@@ -329,7 +359,7 @@
         .nequi-cta .nequi-number {
             font-size: 1.35rem;
             font-weight: 700;
-            color: var(--text-primary);
+            color: #ffffff;
             letter-spacing: 1.5px;
         }
 
@@ -421,8 +451,15 @@
         }
 
         @keyframes shimmer {
-            0%, 100% { opacity: 0; }
-            50% { opacity: 1; }
+
+            0%,
+            100% {
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 1;
+            }
         }
 
         /* Participant list */
@@ -565,16 +602,28 @@
                 opacity: 0;
                 transform: translateY(20px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
 
-        .anim-delay-1 { animation: fadeInUp 0.6s ease-out 0.1s backwards; }
-        .anim-delay-2 { animation: fadeInUp 0.6s ease-out 0.2s backwards; }
-        .anim-delay-3 { animation: fadeInUp 0.6s ease-out 0.3s backwards; }
-        .anim-delay-4 { animation: fadeInUp 0.6s ease-out 0.4s backwards; }
+        .anim-delay-1 {
+            animation: fadeInUp 0.6s ease-out 0.1s backwards;
+        }
+
+        .anim-delay-2 {
+            animation: fadeInUp 0.6s ease-out 0.2s backwards;
+        }
+
+        .anim-delay-3 {
+            animation: fadeInUp 0.6s ease-out 0.3s backwards;
+        }
+
+        .anim-delay-4 {
+            animation: fadeInUp 0.6s ease-out 0.4s backwards;
+        }
 
         /* Responsive */
         @media (max-width: 640px) {
@@ -603,6 +652,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Background effects -->
     <div class="bg-effects" aria-hidden="true">
@@ -625,7 +675,7 @@
             </div>
 
             <h1>Torneo Tunjita</h1>
-            <p class="subtitle">Cedritos Basketball — ¡Arma tu equipo y compite!</p>
+            <p class="subtitle">Cedritos Basketball </p>
         </header>
 
         <!-- Participants Card -->
@@ -633,11 +683,12 @@
             <div class="participants-header">
                 <div class="card-header" style="margin-bottom: 0;">
                     <div class="card-icon blue">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                            <circle cx="9" cy="7" r="4"/>
-                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                            <circle cx="9" cy="7" r="4" />
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                         </svg>
                     </div>
                     <h2>Participantes</h2>
@@ -661,11 +712,12 @@
             <!-- Participants grid (loaded dynamically) -->
             <div id="participants-grid" class="participants-grid">
                 <div class="empty-participants">
-                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10"/>
-                        <path d="M8 15h8"/>
-                        <circle cx="9" cy="9" r="1"/>
-                        <circle cx="15" cy="9" r="1"/>
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M8 15h8" />
+                        <circle cx="9" cy="9" r="1" />
+                        <circle cx="15" cy="9" r="1" />
                     </svg>
                     <p>Cargando participantes...</p>
                 </div>
@@ -676,17 +728,20 @@
         <section class="glass-card anim-delay-2" id="info-section">
             <div class="card-header">
                 <div class="card-icon orange">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10"/>
-                        <line x1="12" y1="16" x2="12" y2="12"/>
-                        <line x1="12" y1="8" x2="12.01" y2="8"/>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10" />
+                        <line x1="12" y1="16" x2="12" y2="12" />
+                        <line x1="12" y1="8" x2="12.01" y2="8" />
                     </svg>
                 </div>
                 <h2>Información del Torneo</h2>
             </div>
 
             <p class="disclaimer-content">
-                Muchachos, ¿qué opinan de hacer un nuevo torneo como los del año pasado? Formato <span class="highlight">3 equipos</span>. La cuota sería de <span class="money">$20.000</span> por persona. Dos árbitros con mesa. Máximo <span class="highlight">24 cupos</span>.
+                Muchachos, ¿qué opinan de hacer un nuevo torneo como los del año pasado? Formato <span
+                    class="highlight">3 equipos</span>. La cuota sería de <span class="money">$20.000</span> por
+                persona. Dos árbitros con mesa. Máximo <span class="highlight">24 cupos</span>.
             </p>
 
             <div class="info-pills">
@@ -717,12 +772,13 @@
         <section class="glass-card anim-delay-3" id="rules-section">
             <div class="card-header">
                 <div class="card-icon purple">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                        <polyline points="14 2 14 8 20 8"/>
-                        <line x1="16" y1="13" x2="8" y2="13"/>
-                        <line x1="16" y1="17" x2="8" y2="17"/>
-                        <polyline points="10 9 9 9 8 9"/>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                        <polyline points="14 2 14 8 20 8" />
+                        <line x1="16" y1="13" x2="8" y2="13" />
+                        <line x1="16" y1="17" x2="8" y2="17" />
+                        <polyline points="10 9 9 9 8 9" />
                     </svg>
                 </div>
                 <h2>Condiciones</h2>
@@ -731,19 +787,23 @@
             <div class="rules-grid">
                 <div class="rule-item">
                     <span class="rule-icon">✅</span>
-                    <p class="rule-text">Si <strong>SÍ se hace</strong> el torneo, una persona puede dejarle el cupo a otra, pero <strong>no se devuelve la plata</strong>.</p>
+                    <p class="rule-text">Si <strong>SÍ se hace</strong> el torneo, una persona puede dejarle el cupo a
+                        otra, pero <strong>no se devuelve la plata</strong>.</p>
                 </div>
                 <div class="rule-item">
                     <span class="rule-icon">🔄</span>
-                    <p class="rule-text">Si <strong>NO se hace</strong> el torneo, <strong>se devuelve la plata</strong> a todos los inscritos.</p>
+                    <p class="rule-text">Si <strong>NO se hace</strong> el torneo, <strong>se devuelve la plata</strong>
+                        a todos los inscritos.</p>
                 </div>
                 <div class="rule-item">
                     <span class="rule-icon">🏟️</span>
-                    <p class="rule-text">Con la plata reunida se pone <strong>en firme el arbitraje</strong> y se confirma el torneo.</p>
+                    <p class="rule-text">Con la plata reunida se pone <strong>en firme el arbitraje</strong> y se
+                        confirma el torneo.</p>
                 </div>
                 <div class="rule-item">
                     <span class="rule-icon">📲</span>
-                    <p class="rule-text">Enviar pago a <strong>Nequi</strong> o <strong>llave</strong> al número indicado abajo.</p>
+                    <p class="rule-text">Enviar pago a <strong>Nequi</strong> o <strong>llave</strong> al número
+                        indicado abajo.</p>
                 </div>
             </div>
 
@@ -881,4 +941,5 @@
         document.addEventListener('DOMContentLoaded', loadParticipants);
     </script>
 </body>
+
 </html>
