@@ -625,6 +625,151 @@
             animation: fadeInUp 0.6s ease-out 0.4s backwards;
         }
 
+        .anim-delay-5 {
+            animation: fadeInUp 0.6s ease-out 0.5s backwards;
+        }
+
+        /* Normas section */
+        .normas-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .norma-item {
+            border: 1px solid var(--border-subtle);
+            border-radius: 14px;
+            overflow: hidden;
+            transition: border-color 0.3s ease;
+        }
+
+        .norma-item:hover {
+            border-color: rgba(255, 255, 255, 0.12);
+        }
+
+        .norma-item.open {
+            border-color: rgba(255, 107, 44, 0.2);
+        }
+
+        .norma-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px 18px;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.02);
+            transition: background 0.3s ease;
+            user-select: none;
+        }
+
+        .norma-header:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .norma-number {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+            background: rgba(255, 107, 44, 0.1);
+            color: var(--accent-orange);
+            transition: all 0.3s ease;
+        }
+
+        .norma-item.open .norma-number {
+            background: rgba(255, 107, 44, 0.2);
+        }
+
+        .norma-title {
+            flex: 1;
+            font-weight: 500;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            line-height: 1.4;
+        }
+
+        .norma-toggle {
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+            color: var(--text-muted);
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .norma-item.open .norma-toggle {
+            transform: rotate(180deg);
+            color: var(--accent-orange);
+        }
+
+        .norma-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+
+        .norma-body-inner {
+            padding: 0 18px 18px 64px;
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        .norma-body-inner strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .norma-paragrafo {
+            margin-top: 10px;
+            padding: 12px 16px;
+            background: rgba(139, 92, 246, 0.06);
+            border-left: 3px solid rgba(139, 92, 246, 0.3);
+            border-radius: 0 10px 10px 0;
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+        }
+
+        .norma-paragrafo strong {
+            color: #a78bfa;
+            font-weight: 600;
+        }
+
+        .norma-sorteo-list {
+            margin-top: 10px;
+            padding-left: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .norma-sorteo-list li {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .norma-sorteo-list li strong {
+            color: var(--accent-orange);
+        }
+
+        .normas-acceptance {
+            margin-top: 24px;
+            padding: 20px 24px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(255, 107, 44, 0.08), rgba(244, 63, 94, 0.06));
+            border: 1px solid rgba(255, 107, 44, 0.15);
+            text-align: center;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--accent-orange);
+            letter-spacing: 0.3px;
+        }
+
         /* Responsive */
         @media (max-width: 640px) {
             .page-wrapper {
@@ -829,8 +974,251 @@
             </div>
         </section>
 
+        <!-- Normas Generales Card -->
+        <section class="glass-card anim-delay-4" id="normas-section">
+            <div class="card-header">
+                <div class="card-icon orange">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                    </svg>
+                </div>
+                <h2>Normas Generales de Participación</h2>
+            </div>
+
+            <div class="normas-list" id="normas-list">
+                <!-- 1. Derecho de participación -->
+                <div class="norma-item">
+                    <div class="norma-header" onclick="toggleNorma(this)">
+                        <div class="norma-number">1</div>
+                        <div class="norma-title">Derecho de participación</div>
+                        <svg class="norma-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                    <div class="norma-body">
+                        <div class="norma-body-inner">
+                            Todo jugador adquiere el derecho de participar en el torneo una vez haya realizado el <strong>pago completo</strong> de la inscripción individual. Para ser habilitado oficialmente, deberá encontrarse <strong>a paz y salvo</strong> antes del día y la hora programada para el inicio de los encuentros.
+                            <div class="norma-paragrafo">
+                                <strong>PARÁGRAFO 1:</strong> La participación de los 24 jugadores distribuidos en tres equipos de 8 integrantes (2 mujeres y 6 hombres). De no cumplirse con el volumen y configuración de integrantes, dependiendo del número de participantes se dividirá el volumen de participantes entre los tres equipos.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Puntualidad obligatoria -->
+                <div class="norma-item">
+                    <div class="norma-header" onclick="toggleNorma(this)">
+                        <div class="norma-number">2</div>
+                        <div class="norma-title">Puntualidad obligatoria</div>
+                        <svg class="norma-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                    <div class="norma-body">
+                        <div class="norma-body-inner">
+                            La puntualidad es de <strong>carácter obligatorio</strong>. No se permitirá la participación de jugadores que lleguen después de la hora establecida con la intención de efectuar el pago en ese momento.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Tolerancia de llegada -->
+                <div class="norma-item">
+                    <div class="norma-header" onclick="toggleNorma(this)">
+                        <div class="norma-number">3</div>
+                        <div class="norma-title">Tolerancia de llegada</div>
+                        <svg class="norma-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                    <div class="norma-body">
+                        <div class="norma-body-inner">
+                            La organización podrá establecer un tiempo máximo de tolerancia de <strong>un cuarto de hora</strong> para jugadores inscritos. Una vez superado este límite, el jugador será considerado como <strong>ausente</strong> para efectos de participación y perderá el cupo, el cual será cedido a otro jugador que desee cumplir con los requisitos iniciales.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. Cesión de cupo -->
+                <div class="norma-item">
+                    <div class="norma-header" onclick="toggleNorma(this)">
+                        <div class="norma-number">4</div>
+                        <div class="norma-title">Cesión de cupo</div>
+                        <svg class="norma-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                    <div class="norma-body">
+                        <div class="norma-body-inner">
+                            En caso de no poder asistir y haber cumplido con todos los requisitos, el participante podrá <strong>CEDER su cupo</strong> informando el <strong>día inmediatamente anterior</strong> a la organización. El sustituto deberá cumplir con todos los requisitos del torneo y será incluido en el sorteo, siempre que la notificación se realice antes del cierre de inscripciones. No avisar con antelación implicará la <strong>pérdida del derecho de participación</strong>.
+                            <div class="norma-paragrafo">
+                                <strong>PARÁGRAFO 1:</strong> Se aclara a todos los participantes que cumplieron requisitos y que estén presentes en el campo de juego que <strong>NO pueden ceder el cupo bajo ninguna circunstancia</strong>, en aras del juego limpio y la competitividad.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. Ingreso tardío sin pago previo -->
+                <div class="norma-item">
+                    <div class="norma-header" onclick="toggleNorma(this)">
+                        <div class="norma-number">5</div>
+                        <div class="norma-title">Ingreso tardío sin pago previo</div>
+                        <svg class="norma-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                    <div class="norma-body">
+                        <div class="norma-body-inner">
+                            El participante que <strong>NO haya realizado el pago</strong> y llegue después de la hora establecida solo podrá ingresar cancelando el <strong>doble del valor de la inscripción</strong>. Será asignado al equipo que necesite refuerzo, sin consideración de su nivel, experiencia o posición.
+                            <div class="norma-paragrafo">
+                                <strong>PARÁGRAFO 1:</strong> Entrará en <strong>lista de espera</strong> para disponibilidad de juego.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6. Cupos limitados y prioridad -->
+                <div class="norma-item">
+                    <div class="norma-header" onclick="toggleNorma(this)">
+                        <div class="norma-number">6</div>
+                        <div class="norma-title">Cupos limitados y prioridad</div>
+                        <svg class="norma-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                    <div class="norma-body">
+                        <div class="norma-body-inner">
+                            Los cupos del torneo son limitados a <strong>24 participantes</strong>. Tendrán prioridad los jugadores que hayan realizado el pago de manera anticipada. Una vez completado el cupo máximo, <strong>no se garantizará</strong> la participación de jugadores adicionales.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 7. Asignación de equipos -->
+                <div class="norma-item">
+                    <div class="norma-header" onclick="toggleNorma(this)">
+                        <div class="norma-number">7</div>
+                        <div class="norma-title">Asignación de equipos</div>
+                        <svg class="norma-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                    <div class="norma-body">
+                        <div class="norma-body-inner">
+                            Los equipos serán conformados mediante <strong>sorteo</strong>, el cual se realizará minutos antes del inicio de los encuentros, buscando un <strong>equilibrio competitivo</strong>. Este proceso tendrá en cuenta la posición de juego de cada participante:
+                            <ul class="norma-sorteo-list">
+                                <li>Sorteo para los <strong>postes</strong></li>
+                                <li>Sorteo para <strong>aleros y armadores</strong></li>
+                                <li>Sorteo para <strong>mujeres</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 8. Orden del sorteo -->
+                <div class="norma-item">
+                    <div class="norma-header" onclick="toggleNorma(this)">
+                        <div class="norma-number">8</div>
+                        <div class="norma-title">Orden del sorteo</div>
+                        <svg class="norma-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                    <div class="norma-body">
+                        <div class="norma-body-inner">
+                            El sorteo se organizará según el <strong>orden en que los participantes envíen la confirmación</strong> de su pago. A cada jugador se le asignará un número que determinará su participación en el sorteo, respetando su posición en el campo.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 9. Participación femenina obligatoria -->
+                <div class="norma-item">
+                    <div class="norma-header" onclick="toggleNorma(this)">
+                        <div class="norma-number">9</div>
+                        <div class="norma-title">Participación femenina obligatoria</div>
+                        <svg class="norma-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                    <div class="norma-body">
+                        <div class="norma-body-inner">
+                            Cada equipo deberá contar en cancha con <strong>al menos una mujer</strong>, quien deberá jugar como mínimo <strong>un cuarto completo</strong> o, según decisión del equipo, la totalidad del partido. Esta disposición estará sujeta al número de mujeres inscritas y al equilibrio de los equipos.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 10. Ausencia de sustituciones femeninas -->
+                <div class="norma-item">
+                    <div class="norma-header" onclick="toggleNorma(this)">
+                        <div class="norma-number">10</div>
+                        <div class="norma-title">Ausencia de sustituciones femeninas</div>
+                        <svg class="norma-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                    <div class="norma-body">
+                        <div class="norma-body-inner">
+                            En caso de no contar con jugadoras disponibles para cambios, el equipo podrá continuar el partido con <strong>cinco jugadores hombres</strong> sin que esto genere sanción.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 11. Tiempo mínimo de juego -->
+                <div class="norma-item">
+                    <div class="norma-header" onclick="toggleNorma(this)">
+                        <div class="norma-number">11</div>
+                        <div class="norma-title">Tiempo mínimo de juego</div>
+                        <svg class="norma-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                    <div class="norma-body">
+                        <div class="norma-body-inner">
+                            Todos los participantes deberán jugar <strong>al menos un cuarto completo</strong>. El tiempo adicional de juego dependerá de las decisiones del equipo y del desarrollo del partido.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 12. Sustituciones y rotación -->
+                <div class="norma-item">
+                    <div class="norma-header" onclick="toggleNorma(this)">
+                        <div class="norma-number">12</div>
+                        <div class="norma-title">Sustituciones y rotación</div>
+                        <svg class="norma-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                    <div class="norma-body">
+                        <div class="norma-body-inner">
+                            Las sustituciones deberán realizarse de manera organizada, procurando la <strong>participación equitativa</strong> de todos los jugadores inscritos en cada equipo.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 13. Lesiones -->
+                <div class="norma-item">
+                    <div class="norma-header" onclick="toggleNorma(this)">
+                        <div class="norma-number">13</div>
+                        <div class="norma-title">Lesiones</div>
+                        <svg class="norma-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                    <div class="norma-body">
+                        <div class="norma-body-inner">
+                            En caso de lesión antes de completar el tiempo mínimo de juego, el jugador podrá ser sustituido por un <strong>compañero del mismo equipo</strong>. Si la lesión le impide continuar en el torneo, la organización evaluará la posibilidad de autorizar un reemplazo siempre y cuando cumpla con los <strong>requisitos de inscripción</strong> y exista algún reemplazo en cancha.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 14. Facultades de la organización -->
+                <div class="norma-item">
+                    <div class="norma-header" onclick="toggleNorma(this)">
+                        <div class="norma-number">14</div>
+                        <div class="norma-title">Facultades de la organización</div>
+                        <svg class="norma-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                    <div class="norma-body">
+                        <div class="norma-body-inner">
+                            La organización se reserva el derecho de tomar <strong>decisiones extraordinarias</strong> en situaciones no previstas en este reglamento, siempre con el objetivo de garantizar el buen desarrollo del torneo, la <strong>equidad recreativa</strong> y sobre todo integrarnos como amigos que gustan de este deporte tan bonito.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 15. Respeto por los jueces -->
+                <div class="norma-item">
+                    <div class="norma-header" onclick="toggleNorma(this)">
+                        <div class="norma-number">15</div>
+                        <div class="norma-title">Respeto por los jueces y la organización</div>
+                        <svg class="norma-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
+                    <div class="norma-body">
+                        <div class="norma-body-inner">
+                            Estimados jugadores, en el <strong>III Torneo de Integración Mixto Cedritos</strong> es esencial que cada uno de ustedes mantenga una actitud de <strong>respeto</strong> tanto hacia el juzgamiento como hacia la organización del evento. Los árbitros-jueces cumplen una función clave para garantizar la imparcialidad y el cumplimiento de las reglas, mientras que el equipo organizador trabaja con dedicación para ofrecerles un espacio seguro, ordenado y de calidad. Reconocer y valorar su labor fortalece el <strong>espíritu deportivo</strong>, promueve la convivencia sana y asegura que este torneo sea una verdadera experiencia de integración y crecimiento para todos.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="normas-acceptance">
+                🏀 LOS 24 PARTICIPANTES DEL TORNEO ACEPTARÁN LAS CONDICIONES ESCRITAS EN ESTE REGLAMENTO.
+            </div>
+        </section>
+
         <!-- Footer -->
-        <footer class="page-footer anim-delay-4">
+        <footer class="page-footer anim-delay-5">
             <p>Torneo Tunjita 🏀 2026</p>
         </footer>
     </div>
@@ -947,6 +1335,20 @@
                     btn.classList.remove('copied');
                 }, 2000);
             });
+        }
+
+        function toggleNorma(header) {
+            const item = header.parentElement;
+            const body = item.querySelector('.norma-body');
+            const isOpen = item.classList.contains('open');
+
+            if (isOpen) {
+                body.style.maxHeight = '0';
+                item.classList.remove('open');
+            } else {
+                body.style.maxHeight = body.scrollHeight + 'px';
+                item.classList.add('open');
+            }
         }
 
         // Load on page ready
