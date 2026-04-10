@@ -176,27 +176,51 @@
             font-weight: 300;
         }
 
-        /* Hero Logo */
-        .hero-logo {
+        /* Hero Logos */
+        .hero-logos {
             display: flex;
             justify-content: center;
+            align-items: center;
+            gap: 28px;
             margin: 24px auto;
             animation: bounce 3s ease-in-out infinite;
         }
 
-        .hero-logo img {
-            width: 160px;
-            height: 160px;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 3px solid rgba(255, 107, 44, 0.35);
-            box-shadow: 0 0 30px var(--accent-orange-glow), 0 0 60px rgba(139, 92, 246, 0.12);
+        .hero-logo-item {
             transition: transform 0.4s ease, box-shadow 0.4s ease;
         }
 
-        .hero-logo img:hover {
+        .hero-logo-item:hover {
             transform: scale(1.06);
+        }
+
+        .hero-logo-item img {
+            width: 160px;
+            height: 160px;
+            object-fit: cover;
+        }
+
+        .hero-logo-item.logo-circle img {
+            border-radius: 50%;
+            border: 3px solid rgba(255, 107, 44, 0.35);
+            box-shadow: 0 0 30px var(--accent-orange-glow), 0 0 60px rgba(139, 92, 246, 0.12);
+        }
+
+        .hero-logo-item.logo-circle:hover img {
             box-shadow: 0 0 40px var(--accent-orange-glow), 0 0 80px rgba(139, 92, 246, 0.2);
+        }
+
+        .hero-logo-item.logo-shield img {
+            border-radius: 0;
+            border: none;
+            width: 200px;
+            height: 200px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.25));
+        }
+
+        .hero-logo-item.logo-shield:hover img {
+            filter: drop-shadow(0 0 30px rgba(59, 130, 246, 0.4));
         }
 
         @keyframes bounce {
@@ -814,9 +838,14 @@
                 Inscripciones Abiertas
             </div>
 
-            <!-- Logo -->
-            <div class="hero-logo">
-                <img src="logo.jpeg" alt="Cedritos Basketball" id="hero-logo-img">
+            <!-- Logos -->
+            <div class="hero-logos">
+                <div class="hero-logo-item logo-shield">
+                    <img src="Federacion Colombiana de Baloncesto.png" alt="Federación Colombiana de Baloncesto" id="fcb-logo-img">
+                </div>
+                <div class="hero-logo-item logo-circle">
+                    <img src="logo.jpeg" alt="Cedritos Basketball" id="hero-logo-img">
+                </div>
             </div>
 
             <h1>Torneo Tunjita</h1>
