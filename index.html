@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Torneo Tunjita - Baloncesto</title>
-    <meta name="description" content="Torneo de baloncesto Tunjita. Inscripciones abiertas, máximo 24 cupos.">
+    <meta name="description" content="Torneo de baloncesto Tunjita. Inscripciones abiertas, máximo 28 cupos.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
@@ -569,6 +569,134 @@
             }
         }
 
+        /* Tournament Bracket */
+        .bracket-container {
+            margin-top: 28px;
+        }
+
+        .bracket-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            text-align: center;
+            letter-spacing: 0.3px;
+        }
+
+        .bracket-rounds {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .bracket-round {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .bracket-round-label {
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .bracket-matches {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        @media (max-width: 560px) {
+            .bracket-matches {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .bracket-match {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 18px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .bracket-match:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 107, 44, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .bracket-match.final-match {
+            border-color: rgba(255, 107, 44, 0.25);
+            background: linear-gradient(135deg, rgba(255, 107, 44, 0.06), rgba(244, 63, 94, 0.04));
+        }
+
+        .bracket-match.third-match {
+            border-color: rgba(139, 92, 246, 0.2);
+            background: rgba(139, 92, 246, 0.04);
+        }
+
+        .bracket-team {
+            font-weight: 700;
+            font-size: 1.05rem;
+            padding: 6px 16px;
+            border-radius: 8px;
+            min-width: 70px;
+            text-align: center;
+        }
+
+        .bracket-team.team-a {
+            background: rgba(255, 107, 44, 0.12);
+            color: var(--accent-orange);
+        }
+
+        .bracket-team.team-b {
+            background: rgba(59, 130, 246, 0.12);
+            color: var(--accent-blue);
+        }
+
+        .bracket-team.team-c {
+            background: rgba(139, 92, 246, 0.12);
+            color: #8b5cf6;
+        }
+
+        .bracket-team.team-d {
+            background: rgba(244, 63, 94, 0.12);
+            color: #f43f5e;
+        }
+
+        .bracket-team.team-tbd {
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 0.85rem;
+        }
+
+        .bracket-vs {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .bracket-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4px 0;
+            color: var(--text-muted);
+            font-size: 1.2rem;
+        }
+
         .rule-item {
             display: flex;
             align-items: start;
@@ -870,7 +998,7 @@
                     <h2>Participantes</h2>
                 </div>
                 <div class="counter-badge" id="counter-badge">
-                    <span id="participant-count">0</span> / 24
+                    <span id="participant-count">0</span> / 28
                 </div>
             </div>
 
@@ -916,8 +1044,8 @@
 
             <p class="disclaimer-content">
                 Muchachos, ¿qué opinan de hacer un nuevo torneo como los del año pasado? Formato <span
-                    class="highlight">3 equipos</span>. La cuota sería de <span class="money">$20.000</span> por
-                persona. Dos árbitros con mesa. Máximo <span class="highlight">24 cupos</span>.
+                    class="highlight">4 equipos</span> (cada uno de <span class="highlight">5 hombres y 2 mujeres</span>). La cuota sería de <span class="money">$20.000</span> por
+                persona. Dos árbitros con mesa. Máximo <span class="highlight">28 cupos</span>.
             </p>
 
             <div class="info-pills">
@@ -929,17 +1057,73 @@
                 <div class="pill">
                     <span class="pill-icon">👥</span>
                     <span>Máximo:</span>
-                    <span class="pill-value">24 cupos</span>
+                    <span class="pill-value">28 cupos</span>
                 </div>
                 <div class="pill">
                     <span class="pill-icon">🏀</span>
                     <span>Formato:</span>
-                    <span class="pill-value">3 equipos</span>
+                    <span class="pill-value">4 equipos (7 c/u)</span>
                 </div>
                 <div class="pill">
                     <span class="pill-icon">⚖️</span>
                     <span>Árbitros:</span>
                     <span class="pill-value">2 + mesa</span>
+                </div>
+                <div class="pill">
+                    <span class="pill-icon">🏟️</span>
+                    <span>Partidos:</span>
+                    <span class="pill-value">4 en total</span>
+                </div>
+            </div>
+
+            <!-- Tournament Bracket -->
+            <div class="bracket-container">
+                <div class="bracket-title">📋 Formato del Torneo</div>
+                <div class="bracket-rounds">
+                    <!-- Semifinales -->
+                    <div class="bracket-round">
+                        <div class="bracket-round-label">🏀 Semifinales</div>
+                        <div class="bracket-matches">
+                            <div class="bracket-match">
+                                <span class="bracket-team team-a">Equipo A</span>
+                                <span class="bracket-vs">vs</span>
+                                <span class="bracket-team team-d">Equipo D</span>
+                            </div>
+                            <div class="bracket-match">
+                                <span class="bracket-team team-b">Equipo B</span>
+                                <span class="bracket-vs">vs</span>
+                                <span class="bracket-team team-c">Equipo C</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bracket-flow">▼</div>
+
+                    <!-- Tercer puesto -->
+                    <div class="bracket-round">
+                        <div class="bracket-round-label">🥉 Tercer Puesto</div>
+                        <div class="bracket-matches">
+                            <div class="bracket-match third-match">
+                                <span class="bracket-team team-tbd">Perdedor SF1</span>
+                                <span class="bracket-vs">vs</span>
+                                <span class="bracket-team team-tbd">Perdedor SF2</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bracket-flow">▼</div>
+
+                    <!-- Final -->
+                    <div class="bracket-round">
+                        <div class="bracket-round-label">🏆 Gran Final</div>
+                        <div class="bracket-matches">
+                            <div class="bracket-match final-match">
+                                <span class="bracket-team team-tbd">Ganador SF1</span>
+                                <span class="bracket-vs">vs</span>
+                                <span class="bracket-team team-tbd">Ganador SF2</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1036,10 +1220,10 @@
                             oficialmente, deberá encontrarse <strong>a paz y salvo</strong> antes del día y la hora
                             programada para el inicio de los encuentros.
                             <div class="norma-paragrafo">
-                                <strong>PARÁGRAFO 1:</strong> La participación de los 24 jugadores distribuidos en tres
-                                equipos de 8 integrantes (2 mujeres y 6 hombres). De no cumplirse con el volumen y
+                                <strong>PARÁGRAFO 1:</strong> La participación de los 28 jugadores distribuidos en cuatro
+                                equipos de 7 integrantes (2 mujeres y 5 hombres). De no cumplirse con el volumen y
                                 configuración de integrantes, dependiendo del número de participantes se dividirá el
-                                volumen de participantes entre los tres equipos.
+                                volumen de participantes entre los cuatro equipos.
                             </div>
                         </div>
                     </div>
@@ -1148,7 +1332,7 @@
                     </div>
                     <div class="norma-body">
                         <div class="norma-body-inner">
-                            Los cupos del torneo son limitados a <strong>24 participantes</strong>. Tendrán prioridad
+                            Los cupos del torneo son limitados a <strong>28 participantes</strong>. Tendrán prioridad
                             los jugadores que hayan realizado el pago de manera anticipada. Una vez completado el cupo
                             máximo, <strong>no se garantizará</strong> la participación de jugadores adicionales.
                         </div>
@@ -1340,7 +1524,7 @@
             </div>
 
             <div class="normas-acceptance">
-                🏀 LOS 24 PARTICIPANTES DEL TORNEO ACEPTARÁN LAS CONDICIONES ESCRITAS EN ESTE REGLAMENTO.
+                🏀 LOS 28 PARTICIPANTES DEL TORNEO ACEPTARÁN LAS CONDICIONES ESCRITAS EN ESTE REGLAMENTO.
             </div>
         </section>
 
@@ -1351,7 +1535,7 @@
     </div>
 
     <script>
-        const MAX_PARTICIPANTS = 24;
+        const MAX_PARTICIPANTS = 28;
 
         async function loadParticipants() {
             const grid = document.getElementById('participants-grid');
