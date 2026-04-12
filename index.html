@@ -486,21 +486,74 @@
             }
         }
 
-        /* Participant list */
+        /* Tabs */
+        .tabs-bar {
+            display: flex;
+            gap: 4px;
+            margin: 20px 0 24px;
+            padding: 4px;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 12px;
+            border: 1px solid var(--border-subtle);
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 10px 16px;
+            border: none;
+            border-radius: 9px;
+            background: transparent;
+            color: var(--text-muted);
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .tab-btn:hover {
+            color: var(--text-secondary);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .tab-btn.active {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-primary);
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .tab-btn .tab-icon {
+            font-size: 1.05rem;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Flat participant list */
         .participants-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 12px;
+            grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+            gap: 10px;
         }
 
         .participant-item {
             display: flex;
             align-items: center;
-            gap: 14px;
-            padding: 16px 18px;
+            gap: 12px;
+            padding: 12px 16px;
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--border-subtle);
-            border-radius: 14px;
+            border-radius: 12px;
             transition: all 0.3s ease;
             animation: fadeInUp 0.5s ease-out backwards;
         }
@@ -508,40 +561,201 @@
         .participant-item:hover {
             background: rgba(255, 255, 255, 0.06);
             border-color: rgba(255, 255, 255, 0.1);
-            transform: translateY(-3px);
+            transform: translateY(-2px);
         }
 
         .participant-number {
-            width: 36px;
-            height: 36px;
-            border-radius: 10px;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 700;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             flex-shrink: 0;
         }
 
-        .participant-item:nth-child(3n+1) .participant-number {
+        .participant-number.pn-orange {
             background: rgba(255, 107, 44, 0.12);
             color: var(--accent-orange);
         }
-
-        .participant-item:nth-child(3n+2) .participant-number {
+        .participant-number.pn-blue {
             background: rgba(59, 130, 246, 0.12);
             color: var(--accent-blue);
         }
-
-        .participant-item:nth-child(3n) .participant-number {
+        .participant-number.pn-purple {
             background: rgba(139, 92, 246, 0.12);
             color: #8b5cf6;
+        }
+        .participant-number.pn-rose {
+            background: rgba(244, 63, 94, 0.12);
+            color: #f43f5e;
+        }
+
+        .participant-info {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            min-width: 0;
         }
 
         .participant-name {
             font-weight: 500;
-            font-size: 1rem;
+            font-size: 0.95rem;
             color: var(--text-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .gender-badge {
+            font-size: 0.75rem;
+            padding: 2px 6px;
+            border-radius: 6px;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .gender-badge.female {
+            background: rgba(236, 72, 153, 0.12);
+            color: #ec4899;
+        }
+
+        /* Teams container */
+        .teams-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        @media (max-width: 640px) {
+            .teams-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .team-block {
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid var(--border-subtle);
+            background: rgba(255, 255, 255, 0.02);
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.6s ease-out backwards;
+        }
+
+        .team-block:hover {
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .team-block.team-a-block { border-color: rgba(255, 107, 44, 0.2); }
+        .team-block.team-a-block:hover { border-color: rgba(255, 107, 44, 0.35); }
+        .team-block.team-b-block { border-color: rgba(59, 130, 246, 0.2); }
+        .team-block.team-b-block:hover { border-color: rgba(59, 130, 246, 0.35); }
+        .team-block.team-c-block { border-color: rgba(139, 92, 246, 0.2); }
+        .team-block.team-c-block:hover { border-color: rgba(139, 92, 246, 0.35); }
+        .team-block.team-d-block { border-color: rgba(244, 63, 94, 0.2); }
+        .team-block.team-d-block:hover { border-color: rgba(244, 63, 94, 0.35); }
+
+        .team-block-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 14px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .team-block-badge {
+            padding: 5px 14px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+        }
+
+        .team-a-block .team-block-badge { background: rgba(255, 107, 44, 0.15); color: var(--accent-orange); }
+        .team-b-block .team-block-badge { background: rgba(59, 130, 246, 0.15); color: var(--accent-blue); }
+        .team-c-block .team-block-badge { background: rgba(139, 92, 246, 0.15); color: #8b5cf6; }
+        .team-d-block .team-block-badge { background: rgba(244, 63, 94, 0.15); color: #f43f5e; }
+
+        .team-block-subtitle {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            font-weight: 400;
+            margin-left: 2px;
+        }
+
+        .team-block-count {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            margin-left: auto;
+        }
+
+        .team-members {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .team-member {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 9px 12px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.4s ease-out backwards;
+        }
+
+        .team-member:hover {
+            background: rgba(255, 255, 255, 0.06);
+            transform: translateX(4px);
+        }
+
+        .team-member-number {
+            width: 28px;
+            height: 28px;
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.75rem;
+            flex-shrink: 0;
+        }
+
+        .team-a-block .team-member-number { background: rgba(255, 107, 44, 0.1); color: var(--accent-orange); }
+        .team-b-block .team-member-number { background: rgba(59, 130, 246, 0.1); color: var(--accent-blue); }
+        .team-c-block .team-member-number { background: rgba(139, 92, 246, 0.1); color: #8b5cf6; }
+        .team-d-block .team-member-number { background: rgba(244, 63, 94, 0.1); color: #f43f5e; }
+
+        .team-member-name {
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            flex: 1;
+            min-width: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .team-member-gender {
+            font-size: 0.7rem;
+            flex-shrink: 0;
+        }
+
+        .team-member-empty {
+            padding: 9px 12px;
+            text-align: center;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            font-style: italic;
+            border: 1px dashed var(--border-subtle);
+            border-radius: 10px;
         }
 
         /* Empty state */
@@ -1013,18 +1227,35 @@
                 </div>
             </div>
 
-            <!-- Participants grid (loaded dynamically) -->
-            <div id="participants-grid" class="participants-grid">
-                <div class="empty-participants">
-                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10" />
-                        <path d="M8 15h8" />
-                        <circle cx="9" cy="9" r="1" />
-                        <circle cx="15" cy="9" r="1" />
-                    </svg>
-                    <p>Cargando participantes...</p>
+            <!-- Tabs -->
+            <div class="tabs-bar" id="tabs-bar">
+                <button class="tab-btn active" data-tab="list" onclick="switchTab('list')">
+                    <span class="tab-icon">📋</span> Participantes
+                </button>
+                <button class="tab-btn" data-tab="teams" onclick="switchTab('teams')">
+                    <span class="tab-icon">👥</span> Equipos
+                </button>
+            </div>
+
+            <!-- Tab: Flat list -->
+            <div id="tab-list" class="tab-content active">
+                <div id="participants-grid" class="participants-grid">
+                    <div class="empty-participants">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10" />
+                            <path d="M8 15h8" />
+                            <circle cx="9" cy="9" r="1" />
+                            <circle cx="15" cy="9" r="1" />
+                        </svg>
+                        <p>Cargando participantes...</p>
+                    </div>
                 </div>
+            </div>
+
+            <!-- Tab: Teams -->
+            <div id="tab-teams" class="tab-content">
+                <div id="teams-grid"></div>
             </div>
         </section>
 
@@ -1536,9 +1767,37 @@
 
     <script>
         const MAX_PARTICIPANTS = 28;
+        const TEAM_SIZE = 7;
+
+        // Women participants (case-insensitive match)
+        const WOMEN_NAMES = [
+            'sara', 'carlina', 'natalia', 'camila', 'alexa', 'yeimi', 'adis', 'cora'
+        ];
+
+        function isWoman(name) {
+            return WOMEN_NAMES.some(w => name.toLowerCase().includes(w));
+        }
+
+        // Team color classes for flat list numbering
+        const teamColors = ['pn-orange', 'pn-blue', 'pn-purple', 'pn-rose'];
+
+        const teamConfig = [
+            { name: 'Equipo A', cssClass: 'team-a-block', emoji: '🟠' },
+            { name: 'Equipo B', cssClass: 'team-b-block', emoji: '🔵' },
+            { name: 'Equipo C', cssClass: 'team-c-block', emoji: '🟣' },
+            { name: 'Equipo D', cssClass: 'team-d-block', emoji: '🔴' }
+        ];
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+            document.querySelector(`.tab-btn[data-tab="${tabId}"]`).classList.add('active');
+            document.getElementById(`tab-${tabId}`).classList.add('active');
+        }
 
         async function loadParticipants() {
-            const grid = document.getElementById('participants-grid');
+            const listGrid = document.getElementById('participants-grid');
+            const teamsGrid = document.getElementById('teams-grid');
             const countEl = document.getElementById('participant-count');
             const percentEl = document.getElementById('progress-percent');
             const fillEl = document.getElementById('progress-fill');
@@ -1553,8 +1812,8 @@
                     .filter(line => line.length > 0);
 
                 if (lines.length === 0) {
-                    grid.innerHTML = `
-                        <div class="empty-participants" style="grid-column: 1 / -1;">
+                    const emptyHtml = `
+                        <div class="empty-participants">
                             <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                                 <circle cx="12" cy="12" r="10"/>
                                 <path d="M8 15h8"/>
@@ -1564,12 +1823,13 @@
                             <p>Aún no hay participantes inscritos</p>
                         </div>
                     `;
+                    listGrid.innerHTML = emptyHtml;
+                    teamsGrid.innerHTML = emptyHtml;
                     return;
                 }
 
                 // Parse participants
                 const participants = lines.map(line => {
-                    // Remove leading number, dot, dash, etc.
                     const cleaned = line.replace(/^\d+[\.\)\-\s]+/, '').trim();
                     return cleaned || line;
                 });
@@ -1577,39 +1837,90 @@
                 const count = participants.length;
                 const percent = Math.min(Math.round((count / MAX_PARTICIPANTS) * 100), 100);
 
-                // Update counter and progress
                 countEl.textContent = count;
                 percentEl.textContent = percent + '%';
+                requestAnimationFrame(() => { fillEl.style.width = percent + '%'; });
 
-                // Animate progress bar
-                requestAnimationFrame(() => {
-                    fillEl.style.width = percent + '%';
-                });
-
-                // Render participants
-                grid.innerHTML = '';
+                // ─── TAB 1: Flat list ───
+                listGrid.innerHTML = '';
                 participants.forEach((name, i) => {
+                    const teamIdx = Math.floor(i / TEAM_SIZE);
+                    const colorClass = teamColors[teamIdx] || teamColors[0];
+                    const female = isWoman(name);
+                    const genderBadge = female ? '<span class="gender-badge female">👩</span>' : '';
+
                     const item = document.createElement('div');
                     item.className = 'participant-item';
-                    item.style.animationDelay = `${0.05 * i}s`;
-
+                    item.style.animationDelay = `${0.04 * i}s`;
                     item.innerHTML = `
-                        <div class="participant-number">${i + 1}</div>
-                        <div class="participant-name">${escapeHtml(name)}</div>
+                        <div class="participant-number ${colorClass}">${i + 1}</div>
+                        <div class="participant-info">
+                            <span class="participant-name">${escapeHtml(name)}</span>
+                            ${genderBadge}
+                        </div>
                     `;
-
-                    grid.appendChild(item);
+                    listGrid.appendChild(item);
                 });
 
+                // ─── TAB 2: Teams view ───
+                teamsGrid.innerHTML = '';
+                const teamsContainer = document.createElement('div');
+                teamsContainer.className = 'teams-container';
+
+                teamConfig.forEach((team, teamIdx) => {
+                    const start = teamIdx * TEAM_SIZE;
+                    const teamMembers = participants.slice(start, start + TEAM_SIZE);
+                    const womenCount = teamMembers.filter(n => isWoman(n)).length;
+                    const menCount = teamMembers.length - womenCount;
+
+                    const block = document.createElement('div');
+                    block.className = `team-block ${team.cssClass}`;
+                    block.style.animationDelay = `${0.1 * teamIdx}s`;
+
+                    let membersHtml = '';
+                    for (let j = 0; j < TEAM_SIZE; j++) {
+                        if (j < teamMembers.length) {
+                            const female = isWoman(teamMembers[j]);
+                            const genderIcon = female ? '👩' : '🏀';
+                            membersHtml += `
+                                <div class="team-member" style="animation-delay: ${0.05 * j + 0.1 * teamIdx}s">
+                                    <div class="team-member-number">${start + j + 1}</div>
+                                    <div class="team-member-name">${escapeHtml(teamMembers[j])}</div>
+                                    <div class="team-member-gender">${genderIcon}</div>
+                                </div>
+                            `;
+                        } else {
+                            membersHtml += `<div class="team-member-empty">Cupo disponible</div>`;
+                        }
+                    }
+
+                    block.innerHTML = `
+                        <div class="team-block-header">
+                            <div>
+                                <div class="team-block-badge">${team.emoji} ${team.name}</div>
+                                <div class="team-block-subtitle">${menCount}♂ · ${womenCount}♀</div>
+                            </div>
+                            <div class="team-block-count">${teamMembers.length}/${TEAM_SIZE}</div>
+                        </div>
+                        <div class="team-members">${membersHtml}</div>
+                    `;
+
+                    teamsContainer.appendChild(block);
+                });
+
+                teamsGrid.appendChild(teamsContainer);
+
             } catch (error) {
-                grid.innerHTML = `
-                    <div class="load-error" style="grid-column: 1 / -1;">
+                const errorHtml = `
+                    <div class="load-error">
                         <p>⚠️ No se pudieron cargar los participantes.</p>
                         <p style="font-size: 0.85rem; margin-top: 8px; color: var(--text-muted);">
                             Asegúrate de que el archivo <strong>Participantes.txt</strong> esté en la misma carpeta.
                         </p>
                     </div>
                 `;
+                listGrid.innerHTML = errorHtml;
+                teamsGrid.innerHTML = errorHtml;
             }
         }
 
@@ -1631,7 +1942,6 @@
                     btn.classList.remove('copied');
                 }, 2000);
             }).catch(() => {
-                // Fallback for older browsers
                 const textarea = document.createElement('textarea');
                 textarea.value = number;
                 document.body.appendChild(textarea);
@@ -1662,7 +1972,6 @@
             }
         }
 
-        // Load on page ready
         document.addEventListener('DOMContentLoaded', loadParticipants);
     </script>
 </body>
