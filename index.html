@@ -539,6 +539,80 @@
             display: block;
         }
 
+        /* Sub-tabs (inside Equipos) */
+        .subtabs-bar {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 20px;
+            padding: 6px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+
+        .subtabs-bar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .subtab-btn {
+            padding: 7px 16px;
+            border: 1px solid var(--border-subtle);
+            border-radius: 20px;
+            background: transparent;
+            color: var(--text-muted);
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .subtab-btn:hover {
+            color: var(--text-secondary);
+            border-color: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .subtab-btn.active {
+            background: rgba(255, 107, 44, 0.12);
+            color: var(--accent-orange);
+            border-color: rgba(255, 107, 44, 0.3);
+            font-weight: 600;
+        }
+
+        .subtab-content {
+            display: none;
+        }
+
+        .subtab-content.active {
+            display: block;
+        }
+
+        .dist-loading {
+            text-align: center;
+            padding: 30px 20px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .dist-loading .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border-subtle);
+            border-top-color: var(--accent-orange);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
         /* Flat participant list */
         .participants-grid {
             display: grid;
@@ -1255,7 +1329,8 @@
 
             <!-- Tab: Teams -->
             <div id="tab-teams" class="tab-content">
-                <div id="teams-grid"></div>
+                <div id="subtabs-bar" class="subtabs-bar"></div>
+                <div id="subtabs-content"></div>
             </div>
         </section>
 
@@ -1768,6 +1843,7 @@
     <script>
         const MAX_PARTICIPANTS = 28;
         const TEAM_SIZE = 7;
+        const MAX_DISTRIBUTIONS = 8;
 
         // Women participants (case-insensitive match)
         const WOMEN_NAMES = [
@@ -1795,9 +1871,142 @@
             document.getElementById(`tab-${tabId}`).classList.add('active');
         }
 
+        function switchSubtab(distIdx) {
+            document.querySelectorAll('.subtab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.subtab-content').forEach(c => c.classList.remove('active'));
+            const btn = document.querySelector(`.subtab-btn[data-dist="${distIdx}"]`);
+            const content = document.getElementById(`dist-${distIdx}`);
+            if (btn) btn.classList.add('active');
+            if (content) content.classList.add('active');
+        }
+
+        // Parse a CSV string into 4 team arrays
+        function parseCsv(csvText) {
+            const lines = csvText.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+            if (lines.length < 2) return null;
+
+            // Skip header row, parse data rows
+            const teams = [[], [], [], []];
+            for (let i = 1; i < lines.length; i++) {
+                const cols = lines[i].split(',').map(c => c.trim());
+                for (let t = 0; t < 4; t++) {
+                    if (cols[t] && cols[t].length > 0) {
+                        teams[t].push(cols[t]);
+                    }
+                }
+            }
+            return teams;
+        }
+
+        // Render 4 team blocks from team arrays
+        function renderTeamBlocks(teams) {
+            const container = document.createElement('div');
+            container.className = 'teams-container';
+
+            teamConfig.forEach((team, teamIdx) => {
+                const members = teams[teamIdx] || [];
+                const womenCount = members.filter(n => isWoman(n)).length;
+                const menCount = members.length - womenCount;
+
+                const block = document.createElement('div');
+                block.className = `team-block ${team.cssClass}`;
+                block.style.animationDelay = `${0.1 * teamIdx}s`;
+
+                let membersHtml = '';
+                for (let j = 0; j < TEAM_SIZE; j++) {
+                    if (j < members.length) {
+                        const female = isWoman(members[j]);
+                        const genderIcon = female ? '👩' : '🏀';
+                        membersHtml += `
+                            <div class="team-member" style="animation-delay: ${0.05 * j + 0.1 * teamIdx}s">
+                                <div class="team-member-number">${j + 1}</div>
+                                <div class="team-member-name">${escapeHtml(members[j])}</div>
+                                <div class="team-member-gender">${genderIcon}</div>
+                            </div>
+                        `;
+                    } else {
+                        membersHtml += `<div class="team-member-empty">Cupo disponible</div>`;
+                    }
+                }
+
+                block.innerHTML = `
+                    <div class="team-block-header">
+                        <div>
+                            <div class="team-block-badge">${team.emoji} ${team.name}</div>
+                            <div class="team-block-subtitle">${menCount}♂ · ${womenCount}♀</div>
+                        </div>
+                        <div class="team-block-count">${members.length}/${TEAM_SIZE}</div>
+                    </div>
+                    <div class="team-members">${membersHtml}</div>
+                `;
+                container.appendChild(block);
+            });
+
+            return container;
+        }
+
+        async function loadDistributions() {
+            const subtabsBar = document.getElementById('subtabs-bar');
+            const subtabsContent = document.getElementById('subtabs-content');
+            subtabsBar.innerHTML = '';
+            subtabsContent.innerHTML = '';
+
+            let foundCount = 0;
+
+            for (let i = 1; i <= MAX_DISTRIBUTIONS; i++) {
+                try {
+                    const resp = await fetch(`distribucion_${i}.csv`);
+                    if (!resp.ok) continue;
+                    const csvText = await resp.text();
+                    const teams = parseCsv(csvText);
+                    if (!teams) continue;
+
+                    foundCount++;
+
+                    // Create sub-tab button
+                    const btn = document.createElement('button');
+                    btn.className = 'subtab-btn' + (foundCount === 1 ? ' active' : '');
+                    btn.dataset.dist = i;
+                    btn.textContent = `Sorteo ${i}`;
+                    btn.onclick = () => switchSubtab(i);
+                    subtabsBar.appendChild(btn);
+
+                    // Create sub-tab content
+                    const pane = document.createElement('div');
+                    pane.id = `dist-${i}`;
+                    pane.className = 'subtab-content' + (foundCount === 1 ? ' active' : '');
+                    pane.appendChild(renderTeamBlocks(teams));
+                    subtabsContent.appendChild(pane);
+
+                } catch (e) {
+                    // File not found, skip
+                }
+            }
+
+            if (foundCount === 0) {
+                subtabsBar.style.display = 'none';
+                subtabsContent.innerHTML = `
+                    <div class="empty-participants">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M8 15h8"/>
+                            <circle cx="9" cy="9" r="1"/>
+                            <circle cx="15" cy="9" r="1"/>
+                        </svg>
+                        <p>No hay distribuciones de equipos disponibles aún.</p>
+                        <p style="font-size: 0.8rem; margin-top: 6px; color: var(--text-muted);">Se cargarán desde archivos <strong>distribucion_1.csv</strong> a <strong>distribucion_8.csv</strong></p>
+                    </div>
+                `;
+            }
+
+            // Hide sub-tabs bar if only 1 distribution
+            if (foundCount === 1) {
+                subtabsBar.style.display = 'none';
+            }
+        }
+
         async function loadParticipants() {
             const listGrid = document.getElementById('participants-grid');
-            const teamsGrid = document.getElementById('teams-grid');
             const countEl = document.getElementById('participant-count');
             const percentEl = document.getElementById('progress-percent');
             const fillEl = document.getElementById('progress-fill');
@@ -1812,7 +2021,7 @@
                     .filter(line => line.length > 0);
 
                 if (lines.length === 0) {
-                    const emptyHtml = `
+                    listGrid.innerHTML = `
                         <div class="empty-participants">
                             <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                                 <circle cx="12" cy="12" r="10"/>
@@ -1823,8 +2032,6 @@
                             <p>Aún no hay participantes inscritos</p>
                         </div>
                     `;
-                    listGrid.innerHTML = emptyHtml;
-                    teamsGrid.innerHTML = emptyHtml;
                     return;
                 }
 
@@ -1862,56 +2069,8 @@
                     listGrid.appendChild(item);
                 });
 
-                // ─── TAB 2: Teams view ───
-                teamsGrid.innerHTML = '';
-                const teamsContainer = document.createElement('div');
-                teamsContainer.className = 'teams-container';
-
-                teamConfig.forEach((team, teamIdx) => {
-                    const start = teamIdx * TEAM_SIZE;
-                    const teamMembers = participants.slice(start, start + TEAM_SIZE);
-                    const womenCount = teamMembers.filter(n => isWoman(n)).length;
-                    const menCount = teamMembers.length - womenCount;
-
-                    const block = document.createElement('div');
-                    block.className = `team-block ${team.cssClass}`;
-                    block.style.animationDelay = `${0.1 * teamIdx}s`;
-
-                    let membersHtml = '';
-                    for (let j = 0; j < TEAM_SIZE; j++) {
-                        if (j < teamMembers.length) {
-                            const female = isWoman(teamMembers[j]);
-                            const genderIcon = female ? '👩' : '🏀';
-                            membersHtml += `
-                                <div class="team-member" style="animation-delay: ${0.05 * j + 0.1 * teamIdx}s">
-                                    <div class="team-member-number">${start + j + 1}</div>
-                                    <div class="team-member-name">${escapeHtml(teamMembers[j])}</div>
-                                    <div class="team-member-gender">${genderIcon}</div>
-                                </div>
-                            `;
-                        } else {
-                            membersHtml += `<div class="team-member-empty">Cupo disponible</div>`;
-                        }
-                    }
-
-                    block.innerHTML = `
-                        <div class="team-block-header">
-                            <div>
-                                <div class="team-block-badge">${team.emoji} ${team.name}</div>
-                                <div class="team-block-subtitle">${menCount}♂ · ${womenCount}♀</div>
-                            </div>
-                            <div class="team-block-count">${teamMembers.length}/${TEAM_SIZE}</div>
-                        </div>
-                        <div class="team-members">${membersHtml}</div>
-                    `;
-
-                    teamsContainer.appendChild(block);
-                });
-
-                teamsGrid.appendChild(teamsContainer);
-
             } catch (error) {
-                const errorHtml = `
+                listGrid.innerHTML = `
                     <div class="load-error">
                         <p>⚠️ No se pudieron cargar los participantes.</p>
                         <p style="font-size: 0.85rem; margin-top: 8px; color: var(--text-muted);">
@@ -1919,8 +2078,6 @@
                         </p>
                     </div>
                 `;
-                listGrid.innerHTML = errorHtml;
-                teamsGrid.innerHTML = errorHtml;
             }
         }
 
@@ -1972,7 +2129,10 @@
             }
         }
 
-        document.addEventListener('DOMContentLoaded', loadParticipants);
+        document.addEventListener('DOMContentLoaded', () => {
+            loadParticipants();
+            loadDistributions();
+        });
     </script>
 </body>
 
