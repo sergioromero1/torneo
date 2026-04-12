@@ -696,6 +696,11 @@
             color: #ec4899;
         }
 
+        .gender-badge.male {
+            background: rgba(59, 130, 246, 0.10);
+            color: var(--accent-blue);
+        }
+
         /* Teams container */
         .teams-container {
             display: grid;
@@ -1916,7 +1921,7 @@
                 for (let j = 0; j < TEAM_SIZE; j++) {
                     if (j < members.length) {
                         const female = isWoman(members[j]);
-                        const genderIcon = female ? '👩' : '🏀';
+                        const genderIcon = female ? '♀' : '♂';
                         membersHtml += `
                             <div class="team-member" style="animation-delay: ${0.05 * j + 0.1 * teamIdx}s">
                                 <div class="team-member-number">${j + 1}</div>
@@ -2054,7 +2059,7 @@
                     const teamIdx = Math.floor(i / TEAM_SIZE);
                     const colorClass = teamColors[teamIdx] || teamColors[0];
                     const female = isWoman(name);
-                    const genderBadge = female ? '<span class="gender-badge female">👩</span>' : '';
+                    const genderBadge = female ? '<span class="gender-badge female">♀</span>' : '<span class="gender-badge male">♂</span>';
 
                     const item = document.createElement('div');
                     item.className = 'participant-item';
