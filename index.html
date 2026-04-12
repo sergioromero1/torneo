@@ -176,6 +176,43 @@
             font-weight: 300;
         }
 
+        .uniform-notice {
+            display: inline-flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-top: 16px;
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            max-width: 460px;
+            text-align: left;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.55;
+            font-weight: 400;
+        }
+
+        .uniform-notice strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .uniform-icon {
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        @media (max-width: 480px) {
+            .uniform-notice {
+                max-width: 100%;
+                font-size: 0.82rem;
+                padding: 10px 16px;
+                gap: 8px;
+            }
+        }
+
         /* Hero Logos */
         .hero-logos {
             display: flex;
@@ -1273,6 +1310,10 @@
             <h1>IV Torneo Tunjita - 26 de Abril</h1>
             <p class="subtitle">Cedritos Basketball</p>
             <p class="subtitle" style="margin-top: 8px; font-weight: 500; color: var(--accent-orange);">🕘 9:00 AM - 1:00 PM</p>
+            <div class="uniform-notice">
+                <span class="uniform-icon">👕</span>
+                <span><strong>Uniforme obligatorio:</strong> cada jugador debe llevar una camiseta <strong>blanca</strong> y una <strong>negra</strong>, ambas con número visible.</span>
+            </div>
         </header>
 
         <!-- Participants Card -->
